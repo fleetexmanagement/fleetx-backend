@@ -1,0 +1,69 @@
+{
+	"name": "backend-express",
+	"version": "1.0.0",
+	"description": "Production-ready Express.js backend starter template with TypeScript",
+	"module": "server.ts",
+	"type": "module",
+	"private": true,
+	"engines": {
+		"node": ">=20.0.0",
+		"bun": ">=1.0.0"
+	},
+	"scripts": {
+		"dev": "bun run --watch src/app/server.ts",
+		"start": "NODE_ENV=production bun run src/app/server.ts",
+		"build": "bun build src/app/server.ts --target=bun --outdir=./dist",
+		"test": "NODE_ENV=test bun test",
+		"test:watch": "NODE_ENV=test bun test --watch",
+		"test:coverage": "NODE_ENV=test bun test --coverage",
+		"lint": "bunx biome check .",
+		"lint:fix": "bunx biome check --write .",
+		"format": "bunx biome format --write .",
+		"type-check": "tsc --noEmit",
+		"prepare": "husky",
+		"docker:build": "docker build -t backend-express .",
+		"docker:run": "docker run -p 3000:3000 --env-file .env backend-express"
+	},
+	"devDependencies": {
+		"@babel/core": "^7.28.4",
+		"@babel/preset-env": "^7.28.3",
+		"@babel/preset-typescript": "^7.27.1",
+		"@biomejs/biome": "2.2.5",
+		"@jest/globals": "^30.2.0",
+		"@types/bun": "^1.3.0",
+		"@types/compression": "^1.7.7",
+		"@types/cors": "^2.8.19",
+		"@types/express": "^5.0.3",
+		"@types/jest": "^30.0.0",
+		"@types/supertest": "^6.0.2",
+		"@types/swagger-ui-express": "^4.1.6",
+		"babel-jest": "^30.2.0",
+		"husky": "^9.1.7",
+		"jest": "^30.2.0",
+		"lint-staged": "^16.2.4",
+		"supertest": "^7.0.0",
+		"ts-jest": "^29.4.5",
+		"typescript": "^5.7.2"
+	},
+	"dependencies": {
+		"compression": "^1.7.5",
+		"cors": "^2.8.5",
+		"dotenv": "^17.2.3",
+		"express": "^5.1.0",
+		"express-rate-limit": "^7.5.0",
+		"helmet": "^8.1.0",
+		"http-status-codes": "^2.3.0",
+		"pino": "^10.0.0",
+		"pino-http": "^10.3.0",
+		"pino-pretty": "^13.0.0",
+		"swagger-jsdoc": "^6.2.8",
+		"swagger-ui-express": "^5.0.1",
+		"zod": "^3.24.1",
+		"zod-validation-error": "^3.4.0"
+	},
+	"lint-staged": {
+		"*.{ts,tsx,js,jsx}": [
+			"bunx biome check --write"
+		]
+	}
+}

@@ -1,0 +1,61 @@
+# Dependencies
+node_modules/
+bun.lock
+
+# Build outputs
+dist/
+out/
+*.tgz
+
+# Testing
+coverage/
+*.lcov
+tests/
+**/*.test.ts
+**/*.spec.ts
+jest.config.js
+
+# Development files
+.env
+.env.local
+.env.development
+.env.test
+.env.production.local
+*.log
+logs/
+
+# Git
+.git/
+.gitignore
+.gitattributes
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Documentation
+README.md
+docs/
+*.md
+
+# CI/CD
+.github/
+.gitlab-ci.yml
+.circleci/
+
+# Misc
+.cache/
+.specstory/
+.cursorindexingignore
+*.tsbuildinfo
+.eslintcache
+
+# Docker
+Dockerfile
+.dockerignore
+docker-compose.yml
+
