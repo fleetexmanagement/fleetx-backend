@@ -81,6 +81,45 @@ A **production-ready**, **modern**, and **secure** Express.js backend starter te
    - API Docs: http://localhost:3000/api-docs
    - API Endpoint: http://localhost:3000/api/v1
 
+## 💻 Development Workflow
+
+### Making Commits (Automated)
+Instead of `git commit`, use our automated commit tool:
+```bash
+git add .
+bun run commit
+```
+This will guide you through creating a proper commit message automatically!
+
+### Creating Releases (Automated)
+```bash
+# Patch release (1.0.0 → 1.0.1) - Bug fixes
+bun run release:patch
+
+# Minor release (1.0.0 → 1.1.0) - New features
+bun run release:minor
+
+# Major release (1.0.0 → 2.0.0) - Breaking changes
+bun run release:major
+```
+This automatically updates version, changelog, and creates git tags!
+
+### Daily Development
+```bash
+# Start dev server
+bun run dev
+
+# Run tests
+bun test
+
+# Check code quality
+bun run lint
+bun run type-check
+
+# Commit changes (interactive)
+bun run commit
+```
+
 ## 📁 Project Structure
 
 ```
@@ -282,18 +321,47 @@ docker run -p 3000:3000 --env-file .env backend-express
 
 ## 📜 Scripts
 
+### Development
 | Script | Description |
 |--------|-------------|
 | `bun run dev` | Start development server with hot reload |
 | `bun run start` | Start production server |
 | `bun run build` | Build for production |
+
+### Testing
+| Script | Description |
+|--------|-------------|
 | `bun test` | Run tests |
 | `bun run test:watch` | Run tests in watch mode |
 | `bun run test:coverage` | Generate coverage report |
+
+### Code Quality
+| Script | Description |
+|--------|-------------|
 | `bun run lint` | Check code with Biome |
 | `bun run lint:fix` | Fix linting issues |
 | `bun run format` | Format code with Biome |
 | `bun run type-check` | Check TypeScript types |
+
+### Database (Prisma)
+| Script | Description |
+|--------|-------------|
+| `bun run db:generate` | Generate Prisma client |
+| `bun run db:migrate` | Run database migrations |
+| `bun run db:studio` | Open Prisma Studio |
+
+### Git & Versioning (Automated)
+| Script | Description |
+|--------|-------------|
+| `bun run commit` | Interactive commit (Commitizen) |
+| `bun run release` | Auto-generate release and changelog |
+| `bun run release:patch` | Patch version (1.0.0 → 1.0.1) |
+| `bun run release:minor` | Minor version (1.0.0 → 1.1.0) |
+| `bun run release:major` | Major version (1.0.0 → 2.0.0) |
+
+### Docker
+| Script | Description |
+|--------|-------------|
 | `bun run docker:build` | Build Docker image |
 | `bun run docker:run` | Run Docker container |
 

@@ -1,0 +1,58 @@
+{
+	"header": "# Changelog\n\nAll notable changes to this project will be documented in this file.\n\nThe format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),\nand this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).\n",
+	"types": [
+		{
+			"type": "feat",
+			"section": "✨ Features"
+		},
+		{
+			"type": "fix",
+			"section": "🐛 Bug Fixes"
+		},
+		{
+			"type": "perf",
+			"section": "⚡ Performance Improvements"
+		},
+		{
+			"type": "refactor",
+			"section": "♻️ Code Refactoring"
+		},
+		{
+			"type": "docs",
+			"section": "📚 Documentation"
+		},
+		{
+			"type": "test",
+			"section": "✅ Tests",
+			"hidden": false
+		},
+		{
+			"type": "build",
+			"section": "🔧 Build System",
+			"hidden": false
+		},
+		{
+			"type": "ci",
+			"section": "👷 CI/CD",
+			"hidden": false
+		},
+		{
+			"type": "chore",
+			"hidden": true
+		},
+		{
+			"type": "style",
+			"hidden": true
+		},
+		{
+			"type": "revert",
+			"section": "⏪ Reverts"
+		}
+	],
+	"commitUrlFormat": "https://github.com/fleetexmanagement/fleetx-backend/commit/{{hash}}",
+	"compareUrlFormat": "https://github.com/fleetexmanagement/fleetx-backend/compare/{{previousTag}}...{{currentTag}}",
+	"issueUrlFormat": "https://github.com/fleetexmanagement/fleetx-backend/issues/{{id}}",
+	"userUrlFormat": "https://github.com/{{user}}",
+	"releaseCommitMessageFormat": "chore(release): {{currentTag}}",
+	"issuePrefixes": ["#"]
+}

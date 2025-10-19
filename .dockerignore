@@ -1,33 +1,29 @@
 # Dependencies
 node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 bun.lock
 
-# Build outputs
+# Build outputs (development builds)
 dist/
 out/
 *.tgz
 
-# Testing
+# Testing outputs (not test files)
 coverage/
 *.lcov
-tests/
-**/*.test.ts
-**/*.spec.ts
-jest.config.js
 
-# Development files
-.env
+# Development environment files
 .env.local
 .env.development
 .env.test
-.env.production.local
 *.log
 logs/
 
 # Git
 .git/
 .gitignore
-.gitattributes
 
 # IDE
 .vscode/
@@ -36,11 +32,7 @@ logs/
 *.swo
 *~
 .DS_Store
-
-# Documentation
-README.md
-docs/
-*.md
+Thumbs.db
 
 # CI/CD
 .github/
@@ -54,8 +46,12 @@ docs/
 *.tsbuildinfo
 .eslintcache
 
-# Docker
-Dockerfile
-.dockerignore
-docker-compose.yml
-
+# Keep these for Docker:
+# - src/ (source code)
+# - tests/ (test files)
+# - package.json (dependencies)
+# - tsconfig.json (TypeScript config)
+# - README.md (documentation)
+# - docs/ (documentation)
+# - Dockerfile (for reference)
+# - .dockerignore (for reference)
