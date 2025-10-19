@@ -65,8 +65,9 @@ build/
 tmp/
 temp/
 
-# SpecStory & Cursor
+# SpecStory & Cursor    
 .specstory
+.cursor
 .cursorindexingignore
 
 # IDE - specific settings (keep shared config)

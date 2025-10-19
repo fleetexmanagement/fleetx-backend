@@ -46,6 +46,12 @@ Thumbs.db
 *.tsbuildinfo
 .eslintcache
 
+.cursor/
+.cursorindexingignore
+.specstory/
+
+/generated/prisma
+
 # Keep these for Docker:
 # - src/ (source code)
 # - tests/ (test files)
