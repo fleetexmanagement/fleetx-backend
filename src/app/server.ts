@@ -138,7 +138,10 @@ async function startServer(): Promise<void> {
 }
 
 // Start server if this file is executed directly
-if (import.meta.url === `file://${process.argv[1]}`) {
+// Fixed for Bun compatibility
+const isMainModule =
+	import.meta.main || import.meta.url === `file://${process.argv[1]}`;
+if (isMainModule) {
 	startServer();
 }
 

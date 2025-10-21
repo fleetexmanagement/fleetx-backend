@@ -1,17 +1,17 @@
 import { Router } from "express";
-import { exampleController } from "../../../controllers/index.ts";
+import { exampleController } from "../../../../controllers/index.ts";
 import {
 	asyncHandler,
 	validateBody,
 	validateParams,
 	validateQuery,
-} from "../../../middleware/index.ts";
+} from "../../../../middleware/index.ts";
 import {
 	createItemSchema,
 	itemIdSchema,
 	paginationSchema,
 	updateItemSchema,
-} from "./schemas/item.schema.ts";
+} from "../schemas/item.schema.ts";
 
 /**
  * Items routes (v1)
