@@ -5,6 +5,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.0.0](https://github.com/fleetexmanagement/fleetx-backend/compare/v2.0.0...v3.0.0) (2025-10-30)
+
+
+### ⚠ BREAKING CHANGES
+
+* **security:** Authentication
+
+### ✨ Features
+
+* **auth:** added require-auth/admin features, fixed b-auth intigration, made it according to docs ([8804b29](https://github.com/fleetexmanagement/fleetx-backend/commit/8804b290d4a822efe86e8ab03ce40173cb56b259))
+* **security:** added Authentication via better-auth ([a4cd04d](https://github.com/fleetexmanagement/fleetx-backend/commit/a4cd04d5a825bf0976c1664850d66041e3ed7150))
+
+
+### 📚 Documentation
+
+* **docs:** update documentation for Better Auth integration ([f279fb2](https://github.com/fleetexmanagement/fleetx-backend/commit/f279fb2ed94273420e723fd453e71662ee8df2cd))
+* **docs:** update documentation for Better Auth integration ([a2c8425](https://github.com/fleetexmanagement/fleetx-backend/commit/a2c8425d85fe44cdc503acd1cf5a3626eabc399d))
+
 ## 2.1.0 (2025-01-30)
 
 ### ✨ Features
