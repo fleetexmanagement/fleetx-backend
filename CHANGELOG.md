@@ -5,6 +5,42 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 2.1.0 (2025-01-30)
+
+### ✨ Features
+
+* **auth:** Better Auth integration with comprehensive authentication system
+* **auth:** Email/password authentication with email verification
+* **auth:** Magic link authentication support
+* **auth:** Email OTP (One-Time Password) authentication
+* **auth:** Two-factor authentication (2FA) support
+* **auth:** Username-based authentication
+* **auth:** Organization/multi-tenancy support
+* **auth:** Admin plugin for role-based access control
+* **auth:** Session management with getSession API
+* **middleware:** Added requireSession middleware for route protection
+* **middleware:** Added requireAdmin middleware for admin-only routes
+* **config:** Environment variable validation for Better Auth configuration
+* **config:** Better Auth URL configuration with BETTER_AUTH_URL
+* **config:** Secret key configuration with BETTER_AUTH_SECRET
+* **routes:** Protected all v1/items routes with authentication
+
+### 🔧 Improvements
+
+* **auth:** Fixed Better Auth baseURL configuration to use backend URL
+* **auth:** Mounted Better Auth handler before body parsers to avoid parsing issues
+* **auth:** Removed duplicate auth handler mounting from v1 router
+* **security:** Updated CORS configuration with explicit origins for credential support
+* **security:** Added proper environment variable validation for auth and database
+* **routes:** All CRUD operations now require valid session
+
+### 📚 Documentation
+
+* Updated environment variable requirements
+* Added authentication flow documentation
+* Updated deployment guide with auth configuration
+* Enhanced API guidelines with authentication examples
+
 ## 2.0.0 (2025-10-30)
 
 

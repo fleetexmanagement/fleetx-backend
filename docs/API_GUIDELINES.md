@@ -5,6 +5,7 @@ This document outlines the standards and best practices for developing APIs in t
 ## 📋 Table of Contents
 - [Response Format](#response-format)
 - [Error Handling](#error-handling)
+- [Authentication](#authentication)
 - [Validation](#validation)
 - [Versioning](#versioning)
 - [Naming Conventions](#naming-conventions)
@@ -91,6 +92,85 @@ if (!isValid) {
 }
 ```
 
+## 🔐 Authentication
+
+This API uses [Better Auth](https://www.better-auth.com/) for authentication and authorization.
+
+### Authentication Endpoints
+
+Better Auth provides authentication endpoints at `/api/auth/*`:
+- `POST /api/auth/sign-up` - User registration
+- `POST /api/auth/sign-in` - User login
+- `POST /api/auth/sign-out` - User logout
+- `GET /api/auth/session` - Get current session
+- And many more (password reset, email verification, etc.)
+
+### Protected Routes
+
+Use the `requireSession` middleware to protect routes:
+
+```typescript
+import { Router } from "express";
+import { requireSession } from "../../../../middleware/index.ts";
+
+const router = Router();
+
+// All routes require authentication
+router.use(requireSession);
+
+router.get("/", controller.getAll);
+router.post("/", controller.create);
+```
+
+### Role-Based Access Control
+
+Use the `requireAdmin` middleware for admin-only routes:
+
+```typescript
+import { requireSession, requireAdmin } from "../../../../middleware/index.ts";
+
+// Admin-only route
+router.delete("/:id", requireSession, requireAdmin, controller.delete);
+```
+
+### Accessing User Information
+
+In protected routes, user and session data is available on the request object:
+
+```typescript
+// In your controller
+export async function getProfile(req: Request, res: Response) {
+  const user = (req as any).user;      // User object
+  const session = (req as any).session; // Session object
+  
+  return res.json({ user, session });
+}
+```
+
+### Authentication Methods
+
+Better Auth supports multiple authentication methods:
+
+1. **Email & Password** - Traditional email/password login
+2. **Magic Link** - Passwordless login via email link
+3. **Email OTP** - One-time password sent via email
+4. **Username** - Username-based authentication
+5. **Two-Factor Authentication (2FA)** - Additional security layer
+
+### Frontend Integration
+
+Configure the Better Auth client in your Next.js application:
+
+```typescript
+import { createAuthClient } from "better-auth/react";
+
+export const authClient = createAuthClient({
+  baseURL: "http://localhost:3001", // Backend URL
+});
+
+export const { signIn, signUp, signOut, useSession } = authClient;
+```
+
 ## ✅ Validation
 
 Always validate request data using Zod schemas:
@@ -155,13 +235,21 @@ DELETE /api/v1/items/:id      # Delete item
 
 ### CORS
 - Configure allowed origins in `.env`
-- Enable credentials if needed
+- Enable credentials for authenticated requests
 - Whitelist specific headers
+- Use explicit origins (not `*`) when credentials are enabled
 
 ### Input Validation
 - Always validate all user input
 - Use Zod schemas for type-safe validation
 - Sanitize input data
+
+### Authentication & Authorization
+- All protected routes require valid session
+- Use `requireSession` middleware for authentication
+- Use `requireAdmin` middleware for admin-only endpoints
+- Session tokens are managed by Better Auth
+- User data is attached to request object in protected routes
 
 ### Headers
 Required headers for all requests:

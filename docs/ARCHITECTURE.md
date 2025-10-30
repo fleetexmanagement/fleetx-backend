@@ -16,6 +16,7 @@ This document provides a high-level overview of the application architecture.
 │  ┌──────────────────────────────────────────────────────┐   │
 │  │              Middleware Stack                         │   │
 │  │  • Security (Helmet, CORS)                           │   │
+│  │  • Better Auth Handler                               │   │
 │  │  • Correlation ID                                    │   │
 │  │  • Request Logging                                   │   │
 │  │  • Rate Limiting                                     │   │
@@ -26,8 +27,15 @@ This document provides a high-level overview of the application architecture.
 │  ┌──────────────────▼──────────────────────────────────┐   │
 │  │              API Routes (Versioned)                  │   │
 │  │  • /health/*                                         │   │
+│  │  • /api/auth/* (Better Auth)                         │   │
 │  │  • /api/v1/*                                         │   │
 │  │  • /api-docs                                         │   │
+│  └──────────────────┬──────────────────────────────────┘   │
+│                     │                                        │
+│  ┌──────────────────▼──────────────────────────────────┐   │
+│  │       Authentication Layer                           │   │
+│  │  • requireSession Middleware                         │   │
+│  │  • requireAdmin Middleware                           │   │
 │  └──────────────────┬──────────────────────────────────┘   │
 │                     │                                        │
 │  ┌──────────────────▼──────────────────────────────────┐   │
@@ -52,6 +60,13 @@ This document provides a high-level overview of the application architecture.
 │  │  • Global Error Catching                             │   │
 │  │  • Standardized Error Responses                      │   │
 │  └──────────────────────────────────────────────────────┘   │
+│                     │                                        │
+│  ┌──────────────────▼──────────────────────────────────┐   │
+│  │         Database (Prisma)                            │   │
+│  │  • User Management                                   │   │
+│  │  • Session Storage                                   │   │
+│  │  • Application Data                                  │   │
+│  └──────────────────────────────────────────────────────┘   │
 └─────────────────────────────────────────────────────────────┘
 ```
 
@@ -70,6 +85,7 @@ This document provides a high-level overview of the application architecture.
 
 **Key Components**:
 - `security.ts` - Helmet, CORS, Compression
+- `require-auth.ts` - Authentication & authorization middleware
 - `correlation-id.ts` - Request tracing
 - `rate-limiter.ts` - DDoS protection
 - `validator.ts` - Zod validation
@@ -90,11 +106,22 @@ This document provides a high-level overview of the application architecture.
 routes/
 ├── health.routes.ts      # Health check endpoints
 ├── v1/                   # API version 1
-│   ├── items.routes.ts
+│   ├── items.routes.ts   # Protected item endpoints
+│   ├── session/
+│   │   └── session.routes.ts  # Session management
 │   ├── schemas/          # Validation schemas
 │   └── index.ts
 └── index.ts              # Main router
 ```
+
+**Authentication Routes** (Better Auth):
+- `/api/auth/*` - All Better Auth endpoints (auto-generated)
+  - Sign up/in/out
+  - Password reset
+  - Email verification
+  - 2FA operations
+  - Organization management
+  - And more
 
 ### 3. Controllers Layer
 **Location**: `src/controllers/`
@@ -138,7 +165,38 @@ routes/
 - `errors.ts` - Custom error classes
 - `response.ts` - Response helpers
 
-### 6. Types Layer
+### 5. Authentication Layer
+**Location**: `src/lib/`
+
+**Responsibilities**:
+- Better Auth configuration
+- Authentication setup
+- Session management
+- User management
+
+**Key Components**:
+- `auth.ts` - Better Auth instance configuration
+- `permissions.ts` - Permission utilities (optional)
+
+### 6. Database Layer
+**Location**: `src/generated/prisma/`
+
+**Responsibilities**:
+- Database client
+- Type-safe database access
+- Prisma ORM integration
+
+**Models**:
+- User - User accounts and profiles
+- Session - Active user sessions
+- Account - OAuth and auth providers
+- Verification - Email/OTP verification tokens
+- TwoFactor - 2FA configuration
+- Organization - Multi-tenancy support
+- Member - Organization membership
+- Invitation - Organization invitations
+
+### 7. Types Layer
 **Location**: `src/types/`
 
 **Responsibilities**:
@@ -146,7 +204,7 @@ routes/
 - Interface declarations
 - Schema types
 
-### 7. Utils Layer
+### 8. Utils Layer
 **Location**: `src/utils/`
 
 **Responsibilities**:
@@ -161,17 +219,20 @@ routes/
 1. Request arrives → Middleware Stack
 2. Correlation ID assigned
 3. Request logged
-4. Rate limit checked
-5. Security headers added
-6. Body parsed
-7. Response compressed
-8. Router matches path → Route Handler
-9. Request validated (Zod)
-10. Controller invoked
-11. Service called (if needed)
-12. Response formatted
-13. Response sent
-14. Request logged (completion)
+4. Better Auth handler checks (for /api/auth/* routes)
+5. Rate limit checked
+6. Security headers added
+7. Body parsed
+8. Response compressed
+9. Router matches path → Route Handler
+10. Authentication checked (requireSession/requireAdmin if protected)
+11. Request validated (Zod)
+12. Controller invoked
+13. Service called (if needed)
+14. Database accessed (if needed)
+15. Response formatted
+16. Response sent
+17. Request logged (completion)
 ```
 
 ## 🎯 Design Patterns
@@ -215,6 +276,9 @@ Configuration and logger instances.
 - ✅ Helmet for security headers
 - ✅ CORS with configurable origins
 - ✅ Rate limiting per IP
+- ✅ Better Auth for authentication & authorization
+- ✅ Session-based authentication
+- ✅ Role-based access control (RBAC)
 - ✅ Request validation
 - ✅ Error message sanitization
 - ✅ Non-root Docker user
@@ -340,6 +404,11 @@ All environment variables are validated at startup using Zod schemas.
 - **Supertest** - HTTP testing
 - **ts-jest** - TypeScript support
 
+### Authentication
+- **Better Auth** - Framework-agnostic auth library
+- **Prisma** - Database ORM for auth data
+- **Express Node Handler** - Better Auth integration
+
 ### Code Quality
 - **Biome** - Linting & formatting
 - **Husky** - Git hooks
@@ -363,12 +432,12 @@ Code → Lint → Type Check → Test → Commit → Push → CI/CD → Deploy
 - ✅ Testing
 
 ### Phase 2: Enhancement (Optional)
-- [ ] Database integration
-- [ ] Authentication/Authorization
-- [ ] Caching layer
+- [x] Database integration (Prisma)
+- [x] Authentication/Authorization (Better Auth)
+- [ ] Email service integration
+- [ ] Caching layer (Redis)
 - [ ] Background jobs
 - [ ] File uploads
-- [ ] Email service
 
 ### Phase 3: Advanced (Optional)
 - [ ] Microservices architecture

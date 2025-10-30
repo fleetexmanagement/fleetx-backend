@@ -227,6 +227,15 @@ TRUST_PROXY=true
 # Health Check
 HEALTH_CHECK_PATH=/health
 METRICS_ENABLED=true
+
+# Better Auth
+BETTER_AUTH_URL=https://api.yourdomain.com
+BETTER_AUTH_SECRET=your-super-secret-key-here-make-it-long-and-random
+FRONTEND_URL=https://yourdomain.com
+
+# Database (Prisma)
+DATABASE_URL=postgresql://user:password@host:5432/database?schema=public
+DIRECT_URL=postgresql://user:password@host:5432/database?schema=public
 ```
 
 ## 🔒 Security Best Practices
@@ -234,9 +243,13 @@ METRICS_ENABLED=true
 1. **Never commit secrets** - Use environment variables or secret managers
 2. **Use HTTPS** - Always use TLS in production
 3. **Enable TRUST_PROXY** - If behind load balancer/proxy
-4. **Set CORS carefully** - Don't use `*` in production
-5. **Rate limiting** - Adjust based on your needs
-6. **Keep dependencies updated** - Regularly update packages
+4. **Set CORS carefully** - Don't use `*` in production when credentials are enabled
+5. **Generate strong BETTER_AUTH_SECRET** - Use a long, random secret key
+6. **Set correct BETTER_AUTH_URL** - Must match your backend API URL
+7. **Secure database connections** - Use SSL for production database
+8. **Rate limiting** - Adjust based on your needs
+9. **Keep dependencies updated** - Regularly update packages
+10. **Configure email service** - Implement email sending for auth flows
 
 ## 📊 Monitoring
 
