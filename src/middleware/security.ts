@@ -40,7 +40,6 @@ export function configureSecurity(app: Express): void {
 				"X-Request-ID",
 			],
 			exposedHeaders: ["X-Correlation-ID", "X-Request-ID"],
-			maxAge: 86400, // 24 hours
 		}),
 	);
 

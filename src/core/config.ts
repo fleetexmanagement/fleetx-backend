@@ -82,6 +82,29 @@ class Config {
 		return this.env.LOG_PRETTY;
 	}
 
+	// Frontend URL
+	get frontendUrl(): string {
+		return this.env.FRONTEND_URL;
+	}
+
+	// Better Auth
+	get betterAuthUrl(): string {
+		return this.env.BETTER_AUTH_URL;
+	}
+
+	get betterAuthSecret(): string {
+		return this.env.BETTER_AUTH_SECRET;
+	}
+
+	// Database
+	get databaseUrl(): string {
+		return this.env.DATABASE_URL;
+	}
+
+	get directUrl(): string {
+		return this.env.DIRECT_URL;
+	}
+
 	// Security
 	get helmetEnabled(): boolean {
 		return this.env.HELMET_ENABLED;

@@ -14,7 +14,12 @@ export const requestLogger = pinoHttp({
 		return "info";
 	},
 	customSuccessMessage: (req, res) => {
-		return `${req.method} ${req.url} ${res.statusCode} - ${res.getHeader("content-length") || 0}b`;
+		// biome-ignore lint/suspicious/noExplicitAny: <>
+		const contentLength = (res as any).getHeader
+			? // biome-ignore lint/suspicious/noExplicitAny: <>
+				(res as any).getHeader("content-length")
+			: 0;
+		return `${req.method} ${req.url} ${res.statusCode} - ${contentLength || 0}b`;
 	},
 	customErrorMessage: (_req, _res, err) => {
 		return `Request error: ${err.message}`;
@@ -42,13 +47,21 @@ export const requestLogger = pinoHttp({
 				remotePort: req.raw?.socket?.remotePort,
 			};
 		},
-		res: (res) => ({
-			statusCode: res.statusCode,
-			headers: {
-				contentType: res.getHeader("content-type"),
-				contentLength: res.getHeader("content-length"),
-			},
-		}),
+		res: (res) => {
+			// biome-ignore lint/suspicious/noExplicitAny: <>
+			const rawRes = (res as any).raw || res;
+			return {
+				statusCode: res.statusCode,
+				headers: {
+					contentType: rawRes.getHeader
+						? rawRes.getHeader("content-type")
+						: undefined,
+					contentLength: rawRes.getHeader
+						? rawRes.getHeader("content-length")
+						: undefined,
+				},
+			};
+		},
 	},
 	autoLogging: {
 		ignore: (req) => {
