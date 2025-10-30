@@ -5,12 +5,28 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## 2.0.0 (2025-10-30)
 
-### 🔧 Changed
-- Automated commit message validation
+
+### ⚠ BREAKING CHANGES
+
+* **prisma_intigration&db_setup:** Added the database with prisma orm.
+* Team must now use 'bun run commit' instead of 'git commit'
+
+This implements a fully automated Git workflow focusing on:
+- Automated commit messages
 - Automated changelog generation
-- Simplified Git workflow
+- Automated versioning
+- Simple and easy team workflow
+- Professional industry standards
+
+* complete git and vcs management system cleanup ([0b17426](https://github.com/fleetexmanagement/fleetx-backend/commit/0b17426b3866b3285bd3a147b1b8638ef1b8a836))
+
+
+### ✨ Features
+
+* added prisma_orm ([b7998a4](https://github.com/fleetexmanagement/fleetx-backend/commit/b7998a4ffeb78d9a86b5484c42fe1804f93fac18))
+* **prisma_intigration&db_setup:** setup prisma orm, connect with supabase, write test for prisma ([7881ccf](https://github.com/fleetexmanagement/fleetx-backend/commit/7881ccf1aa84164d6065be504b87dace973abb77))
 
 ## [1.0.0] - 2025-01-18
 

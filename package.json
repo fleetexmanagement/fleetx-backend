@@ -1,6 +1,6 @@
 {
 	"name": "backend-express",
-	"version": "1.0.0",
+	"version": "2.0.0",
 	"description": "Production-ready Express.js backend starter template with TypeScript",
 	"module": "server.ts",
 	"type": "module",
