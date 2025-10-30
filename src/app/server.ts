@@ -1,4 +1,6 @@
+import { toNodeHandler } from "better-auth/node";
 import express, { type Express } from "express";
+import { auth } from "@/lib/auth.ts";
 import { config } from "../core/config.ts";
 import { log } from "../core/logger.ts";
 import {
@@ -41,6 +43,9 @@ function createApp(): Express {
 
 	// Security middleware (Helmet, CORS, Compression)
 	configureSecurity(app);
+
+	// Mount Better Auth handler BEFORE body parsers to avoid interference
+	app.all("/api/auth/*splat", toNodeHandler(auth));
 
 	// Body parsers
 	app.use(express.json({ limit: "10mb" }));

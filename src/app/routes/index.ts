@@ -10,7 +10,6 @@ const router = Router();
 
 // Health check routes (unversioned)
 router.use("/health", healthRoutes);
-
 // API v1 routes
 router.use("/api", Routes);
 

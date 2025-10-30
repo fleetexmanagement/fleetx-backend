@@ -1,7 +1,6 @@
-import { toNodeHandler } from "better-auth/node";
 import { Router } from "express";
-import { auth } from "@/lib/auth.ts";
 import itemsRoutes from "./items/items.routes.ts";
+import sessionRoutes from "./session/session.routes.ts";
 
 /**
  * API v1 routes
@@ -11,6 +10,6 @@ const router = Router();
 
 // Mount routes
 router.use("/items", itemsRoutes);
-router.all("/auth/*splat", toNodeHandler(auth));
+router.use("/auth/session", sessionRoutes);
 
 export default router;

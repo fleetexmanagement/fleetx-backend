@@ -26,7 +26,7 @@ docker build -t backend-express:latest .
 
 ```bash
 docker run -d \
-  -p 3000:3000 \
+  -p 3001:3001 \
   --name backend-api \
   --restart unless-stopped \
   --env-file .env.production \
@@ -44,12 +44,12 @@ services:
   api:
     build: .
     ports:
-      - "3000:3000"
+      - "3001:3001"
     env_file:
       - .env.production
     restart: unless-stopped
     healthcheck:
-      test: ["CMD", "bun", "run", "-e", "await fetch('http://localhost:3000/health').then(r => r.ok || process.exit(1))"]
+      test: ["CMD", "bun", "run", "-e", "await fetch('http://localhost:3001/health').then(r => r.ok || process.exit(1))"]
       interval: 30s
       timeout: 3s
       retries: 3
@@ -96,7 +96,7 @@ gcloud run deploy backend-express \
   --platform managed \
   --region us-central1 \
   --allow-unauthenticated \
-  --port 3000 \
+  --port 3001 \
   --set-env-vars NODE_ENV=production
 ```
 
@@ -112,7 +112,7 @@ az container create \
   --name backend-express \
   --image myregistry.azurecr.io/backend-express:latest \
   --dns-name-label backend-express \
-  --ports 3000
+  --ports 3001
 ```
 
 ### DigitalOcean App Platform
@@ -126,14 +126,14 @@ services:
       repo: your-username/backend-express
       branch: main
     dockerfile_path: Dockerfile
-    http_port: 3000
+    http_port: 3001
     health_check:
       http_path: /health
     envs:
       - key: NODE_ENV
         value: production
       - key: PORT
-        value: "3000"
+        value: "3001"
 ```
 
 2. Deploy:
@@ -177,7 +177,7 @@ services:
       - key: NODE_ENV
         value: production
       - key: PORT
-        value: 3000
+        value: 3001
 ```
 
 2. Connect GitHub repository in Render dashboard
@@ -204,7 +204,7 @@ railway up
 
 ```env
 NODE_ENV=production
-PORT=3000
+PORT=3001
 APP_NAME=backend-express
 API_VERSION=v1
 

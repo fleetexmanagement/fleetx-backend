@@ -209,7 +209,7 @@ bun run docker:run
 
 ## 🌐 **Endpoints**
 
-Once running (http://localhost:3000):
+Once running (http://localhost:3001):
 
 | Endpoint | Description |
 |----------|-------------|
@@ -419,10 +419,10 @@ bun test
 bun run dev
 
 # ✅ Health check responds
-curl http://localhost:3000/health
+curl http://localhost:3001/health
 
 # ✅ API docs accessible
-# Visit http://localhost:3000/api-docs
+# Visit http://localhost:3001/api-docs
 
 # ✅ Docker builds
 bun run docker:build

@@ -43,7 +43,7 @@ WORKDIR /app
 
 # Set production environment
 ENV NODE_ENV=production \
-    PORT=3000
+    PORT=3001
 
 # Copy production dependencies from dependencies stage
 COPY --from=dependencies --chown=nodejs:nodejs /app/node_modules ./node_modules
@@ -57,11 +57,11 @@ COPY --chown=nodejs:nodejs tsconfig.json ./
 USER nodejs
 
 # Expose port
-EXPOSE 3000
+EXPOSE 3001
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-    CMD bun run -e 'await fetch("http://localhost:3000/health").then(r => r.ok || process.exit(1))'
+    CMD bun run -e 'await fetch("http://localhost:3001/health").then(r => r.ok || process.exit(1))'
 
 # Use dumb-init to handle signals properly
 ENTRYPOINT ["dumb-init", "--"]
