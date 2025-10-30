@@ -1,17 +1,18 @@
 import { Router } from "express";
-import { exampleController } from "../../../controllers/index.ts";
+import { exampleController } from "../../../../controllers/index.ts";
 import {
 	asyncHandler,
+	requireSession,
 	validateBody,
 	validateParams,
 	validateQuery,
-} from "../../../middleware/index.ts";
+} from "../../../../middleware/index.ts";
 import {
 	createItemSchema,
 	itemIdSchema,
 	paginationSchema,
 	updateItemSchema,
-} from "./schemas/item.schema.ts";
+} from "../schemas/item.schema.ts";
 
 /**
  * Items routes (v1)
@@ -48,6 +49,7 @@ const router = Router();
  */
 router.get(
 	"/",
+	requireSession,
 	validateQuery(paginationSchema),
 	asyncHandler(exampleController.getAllItems),
 );
@@ -74,6 +76,7 @@ router.get(
  */
 router.get(
 	"/:id",
+	requireSession,
 	validateParams(itemIdSchema),
 	asyncHandler(exampleController.getItemById),
 );
@@ -111,6 +114,7 @@ router.get(
  */
 router.post(
 	"/",
+	requireSession,
 	validateBody(createItemSchema),
 	asyncHandler(exampleController.createItem),
 );
@@ -147,6 +151,7 @@ router.post(
  */
 router.put(
 	"/:id",
+	requireSession,
 	validateParams(itemIdSchema),
 	validateBody(updateItemSchema),
 	asyncHandler(exampleController.updateItem),
@@ -173,6 +178,7 @@ router.put(
  */
 router.delete(
 	"/:id",
+	requireSession,
 	validateParams(itemIdSchema),
 	asyncHandler(exampleController.deleteItem),
 );

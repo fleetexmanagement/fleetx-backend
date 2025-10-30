@@ -76,10 +76,10 @@ A **production-ready**, **modern**, and **secure** Express.js backend starter te
    ```
 
 5. **Access the application**
-   - API: http://localhost:3000
-   - Health Check: http://localhost:3000/health
-   - API Docs: http://localhost:3000/api-docs
-   - API Endpoint: http://localhost:3000/api/v1
+   - API: http://localhost:3001
+   - Health Check: http://localhost:3001/health
+   - API Docs: http://localhost:3001/api-docs
+   - API Endpoint: http://localhost:3001/api/v1
 
 ## 💻 Development Workflow
 
@@ -186,12 +186,12 @@ Create a `.env` file in the root directory:
 ```env
 # Application
 NODE_ENV=development
-PORT=3000
+PORT=3001
 APP_NAME=backend-express
 API_VERSION=v1
 
 # CORS Configuration
-CORS_ORIGIN=http://localhost:3000,http://localhost:5173
+CORS_ORIGIN=http://localhost:3001,http://localhost:5173
 CORS_CREDENTIALS=true
 
 # Rate Limiting
@@ -218,7 +218,7 @@ METRICS_ENABLED=true
 Interactive API documentation is automatically generated and available at:
 
 ```
-http://localhost:3000/api-docs
+http://localhost:3001/api-docs
 ```
 
 ### OpenAPI Spec
@@ -226,7 +226,7 @@ http://localhost:3000/api-docs
 Access the raw OpenAPI specification:
 
 ```
-http://localhost:3000/api-docs.json
+http://localhost:3001/api-docs.json
 ```
 
 ### Health Check Endpoints
@@ -309,7 +309,7 @@ bun run docker:run
 
 or manually:
 ```bash
-docker run -p 3000:3000 --env-file .env backend-express
+docker run -p 3001:3001 --env-file .env backend-express
 ```
 
 ### Docker Features
@@ -464,7 +464,7 @@ docker build -t backend-express:latest .
 
 # Run with production env
 docker run -d \
-  -p 3000:3000 \
+  -p 3001:3001 \
   --env-file .env.production \
   --name backend-api \
   backend-express:latest

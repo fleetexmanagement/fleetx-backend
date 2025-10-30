@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { healthController } from "../../controllers/index.ts";
-import { asyncHandler } from "../../middleware/index.ts";
+import { healthController } from "../../../controllers/index.ts";
+import { asyncHandler } from "../../../middleware/index.ts";
 
 /**
  * Health check routes

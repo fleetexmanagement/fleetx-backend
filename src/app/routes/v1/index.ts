@@ -1,5 +1,6 @@
 import { Router } from "express";
-import itemsRoutes from "./items.routes.ts";
+import itemsRoutes from "./items/items.routes.ts";
+import sessionRoutes from "./session/session.routes.ts";
 
 /**
  * API v1 routes
@@ -9,5 +10,6 @@ const router = Router();
 
 // Mount routes
 router.use("/items", itemsRoutes);
+router.use("/auth/session", sessionRoutes);
 
 export default router;

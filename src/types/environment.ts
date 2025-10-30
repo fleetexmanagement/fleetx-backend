@@ -9,12 +9,17 @@ const envSchema = z.object({
 	NODE_ENV: z
 		.enum(["development", "production", "test"])
 		.default("development"),
-	PORT: z.string().default("3000").transform(Number),
+	PORT: z.string().default("3001").transform(Number),
 	APP_NAME: z.string().default("backend-express"),
 	API_VERSION: z.string().default("v1"),
 
 	// CORS
-	CORS_ORIGIN: z.string().default("*"),
+	// Default aligned with env.example; avoid "*" when credentials=true
+	CORS_ORIGIN: z
+		.string()
+		.default(
+			"http://localhost:3000,http://localhost:5173,http://localhost:3001",
+		),
 	CORS_CREDENTIALS: z
 		.string()
 		.default("true")
@@ -32,6 +37,17 @@ const envSchema = z.object({
 		.string()
 		.default("true")
 		.transform((val) => val === "true"),
+
+	// Frontend URL
+	FRONTEND_URL: z.string().default("http://localhost:3000"),
+
+	// Better Auth
+	BETTER_AUTH_URL: z.string().default("http://localhost:3001"),
+	BETTER_AUTH_SECRET: z.string().default(""),
+
+	// Database
+	DATABASE_URL: z.string().default(""),
+	DIRECT_URL: z.string().default(""),
 
 	// Security
 	HELMET_ENABLED: z
